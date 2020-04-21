@@ -11,7 +11,7 @@ SDESK_INPUT_METADATA_PATH = f"{SDESK_INPUT_PATH}/input_metadata.json"
 SDESK_INPUT_PARAMETERS_PATH = f"{SDESK_INPUT_PATH}/input_parameters.json"
 
 SDESK_OUTPUT_PATH = os.environ.get("SDESK_OUTPUT_PATH", "/output")
-SDESK_OUTPUT_METADATA_PATH = f"{SDESK_OUTPUT_PATH}/input_metadata.json"
+SDESK_OUTPUT_METADATA_PATH = f"{SDESK_OUTPUT_PATH}/input_metadata_updated.json"
 
 
 def get_input_metadata() -> dict:
