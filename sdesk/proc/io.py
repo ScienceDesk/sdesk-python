@@ -27,6 +27,7 @@ def get_input_parameters() -> dict:
         print(rv)
         return rv
 
+
 def get_input_files(input_metadata):
     input_files = []
     for in_file in input_metadata:
