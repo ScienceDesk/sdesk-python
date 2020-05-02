@@ -6,12 +6,20 @@ install:
 - pip install tox-travis
 script:
 - tox
+before_deploy:
+- pip install poetry
+- poetry config http-basic.pypi $PYPI_USER $PYPI_PASSWORD
+- poetry config repositories.debonzi https://pypi.debonzi.dev/simple/
 deploy:
-  provider: pypi
-  user: sciencedesk
-  password:
-    secure: hQTjK1yQ3/C9aelw4SA2tVaqcVb+5rEDukxam3V8PC+FB9+9BHhQY6NOvyd+LI4r8K63rReiu8iJuoK/LtNl+mMHM+uaJUx8i2UoAfcS9R4PZKuhvsbi6Wx+vLXYk0wCj2KYpFJdLzSzaZSsd++yXEQHJTfago088vfrpxZ+E9xwB53AqaRJVFt267CauJAOes8b8DWsDRA+sTNU7sXUAqvR0RFBFECTIdSdjscHBOgS39owtSlB0p2+nLyCfGOD7WJdMUOQxmZ/DwuS1+pls6rQPLzJo7WjnFUiFWfD2rgb5QKaUL4EtUwhjsomYca1V/FiHW8vIc2rPEZgnBLm2gjagkzEC6gvQTzZydxAaTZFA56RX8rqCLhqrJE19pYOyX+BPAGSg/N79gmK448Mm+BbfHy+IUr6MBOE3YDxpYpkLco3edxsfOT42u4z3G6v9ZUfbmYaOHK8KzJ8lzUQahTK3gqflTMvmfkp2Wq6DAbi/SmVo8RDHAvDyxs8B+CbZs5j9TCajV9YlJH0jQp2/Q6Y9QlkNRw8nn7fSJaejywGjPWnL+T07OcoXdCi55KdYLOScqzaciRABiMVqs76SYhzqgA2gzOEb9bcTL1DNhL4TAWS1RHEdSkIO7c1pm5Nbo+YfHfWdT3a2HI3lt3XevWYbhyPp2c+1Rjp10AIHjc=
-  on:
-    tags: true
-    branch: master
-    python: '3.7'
+  - provider: script
+    script: poetry publish -n --build -u $PYPI_USER -p $PYPI_PASSWORD
+    on:
+      branch: master
+      python: '3.7'
+      tags: true
+  - provider: script
+    script: poetry publish -n --build -r debonzi -u $PYPI_USER -p $PYPI_PASSWORD
+    on:
+      branch: development
+      python: '3.7'
+      tags: true

@@ -50,3 +50,36 @@ def update_input_metadata(meta_data) -> dict:
 def create_output_file(name, meta={}) -> SdeskFile:
     fname = f"{SDESK_OUTPUT_PATH}/{name}"
     return SdeskFile(fname, meta)
+
+
+def force_str(object):
+    try:
+        result = str(object)
+    except:
+        try:
+            result = object.encode("utf-8")
+        except:
+            result = object.encode("utf-8", "ignore").decode("utf-8")
+            try:
+                result = object.encode("ascii", "ignore").decode("ascii")
+            except:
+                resutl = ""
+    return result
+
+
+def write_tsv_file(file_path, columns, data):
+    with open(file_path, "w") as fp:
+        fileposition = 0
+        # Header
+        column_names = [col.replace("\n", " ") for col in columns]
+        column_line = "\t".join(column_names) + "\n"
+        fp.write(column_line)
+        fileposition += len(column_line)
+        # Data
+        for row in data:
+            strings = [force_str(elem) for elem in row]
+            data_line = "\t".join(strings) + "\n"
+            fp.write(data_line)
+            fileposition += len(data_line)
+
+    return fileposition
