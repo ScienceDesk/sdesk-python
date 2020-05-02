@@ -8,18 +8,17 @@ script:
 - tox
 before_deploy:
 - pip install poetry
-- poetry config http-basic.pypi $PYPI_USER $PYPI_PASSWORD
 - poetry config repositories.debonzi https://pypi.debonzi.dev/simple/
 deploy:
   - provider: script
-    script: poetry publish -n --build -u $PYPI_USER -p $PYPI_PASSWORD
+    script: poetry publish -n --build -u $PYPI_USER_PROD -p $PYPI_PASSWORD_PROD
     on:
       branch: master
       python: '3.7'
       tags: true
   - provider: script
-    script: poetry publish -n --build -r debonzi -u $PYPI_USER -p $PYPI_PASSWORD
+    script: poetry publish -n --build -r debonzi -u $PYPI_USER_DEV -p $PYPI_PASSWORD_DEV
     on:
       branch: development
       python: '3.7'
-      tags: true
+      tags: false
