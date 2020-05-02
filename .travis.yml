@@ -3,8 +3,9 @@ python:
 - '3.6'
 - '3.7'
 install:
-- pip install poetry
-- poetry install
+- pip install tox-travis
+# - pip install poetry
+# - poetry install
 script:
 - tox
 # deploy:
