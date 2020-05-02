@@ -11,14 +11,16 @@ before_deploy:
 - poetry config repositories.debonzi https://pypi.debonzi.dev/simple/
 deploy:
   - provider: script
+    skip_cleanup: true
     script: poetry publish -n --build -u $PYPI_USER_PROD -p $PYPI_PASSWORD_PROD
     on:
-      branch: master
       python: '3.7'
       tags: true
+      condition: "$TRAVIS_TAG =~ ^[0-9].[0-9].[0-9]$"
   - provider: script
+    skip_cleanup: true
     script: poetry publish -n --build -r debonzi -u $PYPI_USER_DEV -p $PYPI_PASSWORD_DEV
     on:
       branch: development
       python: '3.7'
-      tags: false
+      condition: $(published https://pypi.debonzi.dev/api/package) == False
