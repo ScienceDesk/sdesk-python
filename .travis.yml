@@ -4,7 +4,7 @@ python:
 - '3.7'
 install:
 - pip install tox-travis poetry
-- poetry install
+- poetry install --no-dev
 script:
 - tox
 before_deploy:
