@@ -3,7 +3,7 @@ python:
 - '3.6'
 - '3.7'
 install:
-- pip install tox-travis poetry
+- pip install tox tox-travis poetry
 - poetry install --no-dev
 script:
 - tox
