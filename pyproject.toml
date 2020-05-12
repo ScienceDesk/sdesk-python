@@ -1,13 +1,19 @@
 [tool.poetry]
 name = "sdesk"
-version = "0.2.2+rc.5"
+version = "0.2.2"
 description = "ScienceDesk helper library"
 authors = ["ScienceDesk GmbH <github@sciencedesk.net>"]
 readme = "README.md"
 
 homepage = "https://sciencedesk.net"
 repository = "https://github.com/ScienceDesk/sdesk-python"
-documentation = "https://github.com/ScienceDesk/sdesk-python"
+documentation = "https://sciencedesk-helper-library.readthedocs.io/en/latest/"
+
+classifiers = [
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Development Status :: 3 - Alpha"
+]
 
 [tool.poetry.dependencies]
 python = "^3.6"
