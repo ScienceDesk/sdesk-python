@@ -71,7 +71,7 @@ class Entry(ResourceBase):
 class File(ResourceBase):
     @property
     def name(self):
-        return self._get("datafile")
+        return self._get("filename")
 
     @property
     def type(self):
