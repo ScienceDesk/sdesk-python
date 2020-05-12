@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sdesk"
-version = "0.2.2+rc.4"
+version = "0.2.2+rc.5"
 description = "ScienceDesk helper library"
 authors = ["ScienceDesk GmbH <github@sciencedesk.net>"]
 readme = "README.md"

@@ -2,7 +2,7 @@ import os
 import sys
 import requests
 
-__version__ = "0.2.2+rc.4"
+__version__ = "0.2.2+rc.5"
 
 
 def check_published(uri, extension=".tar.gz"):
