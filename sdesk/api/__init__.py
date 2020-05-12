@@ -1,1 +1,1 @@
-from .auth import SdeskAuth
+from .client import SdeskClient
