@@ -38,6 +38,11 @@ apidoc_output_dir = "apidocs"
 apidoc_excluded_paths = ["tests"]
 apidoc_separate_modules = True
 
+autodoc_default_options = {
+    "special-members": "__init__",
+    "member-order": "bysource",
+}
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 

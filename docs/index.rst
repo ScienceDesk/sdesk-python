@@ -6,11 +6,33 @@
 Welcome to ScienceDesk helper library's documentation!
 ======================================================
 
+Introduction
+------------
+This library aims to help automated integration with Science Desk.
+
+Install
+-------
+Latest release
+
+.. code-block:: bash
+
+   pip install sdesk
+
+
+Development release candidates
+
+Check out for versions `Here <https://pypi.debonzi.dev/#/package/sdesk>`_
+
+.. code-block:: bash
+
+   pip install -i https://pypi.debonzi.dev/simple/ sdesk==0.2.2+rc.5
+
+
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Usage Examples:
 
-
+   examples/index
 
 Indices and tables
 ==================

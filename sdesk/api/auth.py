@@ -1,7 +1,7 @@
 from requests import auth
 
 
-class SdeskAuth(auth.AuthBase):
+class _SdeskAuth(auth.AuthBase):
     """Attaches HTTP Token Authentication to the given Request object."""
 
     def __init__(self, token):
