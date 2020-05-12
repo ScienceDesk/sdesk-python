@@ -12,6 +12,7 @@ documentation = "https://github.com/ScienceDesk/sdesk-python"
 [tool.poetry.dependencies]
 python = "^3.6"
 requests = "^2.23.0"
+requests_toolbelt = "^0.9.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
