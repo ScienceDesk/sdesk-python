@@ -22,6 +22,7 @@ project = "ScienceDesk helper library"
 copyright = "2020, ScienceDesk GmbH"
 author = "ScienceDesk GmbH"
 
+master_doc = "index"
 
 # -- General configuration ---------------------------------------------------
 
