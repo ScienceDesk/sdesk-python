@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sdesk"
-version = "0.2.2"
+version = "0.2.3+rc.0"
 description = "ScienceDesk helper library"
 authors = ["ScienceDesk GmbH <github@sciencedesk.net>"]
 readme = "README.md"
@@ -18,7 +18,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.6"
 requests = "^2.23.0"
-requests_toolbelt = "^0.9.1"
+requests_toolbelt = "^0.8.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
