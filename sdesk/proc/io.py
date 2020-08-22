@@ -31,7 +31,7 @@ def get_input_parameters() -> dict:
 def get_input_files(input_metadata):
     input_files = []
     for in_file in input_metadata:
-        path = f"{SDESK_INPUT_PATH}/{in_file['path']}"
+        path = f"{SDESK_INPUT_PATH}/{in_file['actual_name']}"
         input_files.append(SdeskFile(path))
     return input_files
 
@@ -98,6 +98,6 @@ def get_support_files_metadata() -> dict:
 def get_support_files(suppor_files_metadata):
     support_files = []
     for in_file in suppor_files_metadata:
-        path = f"{SDESK_INPUT_PATH}/{in_file['path']}"
+        path = f"{SDESK_INPUT_PATH}/{in_file['actual_name']}"
         support_files.append(SdeskFile(path))
     return support_files
