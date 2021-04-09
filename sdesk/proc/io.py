@@ -13,25 +13,25 @@ SDESK_INPUT_PARAMETERS_PATH = f"{SDESK_INPUT_PATH}/input_parameters.json"
 SDESK_OUTPUT_PATH = os.environ.get("SDESK_OUTPUT_PATH", "/output")
 SDESK_OUTPUT_METADATA_PATH = f"{SDESK_OUTPUT_PATH}/input_metadata_updated.json"
 
+SDESK_SUPPORT_FILE_METADATA_PATH = f"{SDESK_INPUT_PATH}/support_file_metadata.json"
+
 
 def get_input_metadata() -> dict:
     with open(SDESK_INPUT_METADATA_PATH) as file:
         rv = json.load(file)
-        print(rv)
         return rv
 
 
 def get_input_parameters() -> dict:
     with open(SDESK_INPUT_PARAMETERS_PATH) as file:
         rv = json.load(file)
-        print(rv)
         return rv
 
 
 def get_input_files(input_metadata):
     input_files = []
     for in_file in input_metadata:
-        path = f"{SDESK_INPUT_PATH}/{in_file['path']}"
+        path = f"{SDESK_INPUT_PATH}/{in_file['actual_name']}"
         input_files.append(SdeskFile(path))
     return input_files
 
@@ -54,17 +54,21 @@ def create_output_file(name, meta={}) -> SdeskFile:
 
 def force_str(object):
     try:
-        result = str(object)
+        return str(object)
     except:
-        try:
-            result = object.encode("utf-8")
-        except:
-            result = object.encode("utf-8", "ignore").decode("utf-8")
-            try:
-                result = object.encode("ascii", "ignore").decode("ascii")
-            except:
-                resutl = ""
-    return result
+        pass
+    try:
+        return object.encode("utf-8")
+    except:
+        pass
+    try:
+        return object.encode("utf-8", "ignore").decode("utf-8")
+    except:
+        pass
+    try:
+        return object.encode("ascii", "ignore").decode("ascii")
+    except:
+        return ""
 
 
 def write_tsv_file(file_path, columns, data):
@@ -83,3 +87,17 @@ def write_tsv_file(file_path, columns, data):
             fileposition += len(data_line)
 
     return fileposition
+
+
+def get_support_files_metadata() -> dict:
+    with open(SDESK_SUPPORT_FILE_METADATA_PATH) as file:
+        rv = json.load(file)
+        return rv
+
+
+def get_support_files(suppor_files_metadata):
+    support_files = []
+    for in_file in suppor_files_metadata:
+        path = f"{SDESK_INPUT_PATH}/{in_file['actual_name']}"
+        support_files.append(SdeskFile(path))
+    return support_files
