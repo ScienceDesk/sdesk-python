@@ -1,22 +1,29 @@
 [tool.poetry]
 name = "sdesk"
-version = "0.2.2+rc.2"
+version = "0.2.2"
 description = "ScienceDesk helper library"
 authors = ["ScienceDesk GmbH <github@sciencedesk.net>"]
 readme = "README.md"
 
 homepage = "https://sciencedesk.net"
 repository = "https://github.com/ScienceDesk/sdesk-python"
-documentation = "https://github.com/ScienceDesk/sdesk-python"
+documentation = "https://sciencedesk-helper-library.readthedocs.io/en/latest/"
+
+classifiers = [
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Development Status :: 3 - Alpha"
+]
 
 [tool.poetry.dependencies]
 python = "^3.6"
 requests = "^2.23.0"
+requests_toolbelt = "^0.9.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 black = "^19.10b0"
-pre-commit = {version = "^2.3.0", python = "^3.6.1" }
+pre-commit = {version = "^2.4.0", python = "^3.6.1"}
 pylint = "^2.5.0"
 tox = "^3.14.6"
 sphinx = "^3.0.3"
