@@ -7,13 +7,14 @@ from .sdesk_file import SdeskFile
 
 
 SDESK_INPUT_PATH = os.environ.get("SDESK_INPUT_PATH", "/input")
+SDESK_SUPPLEMENT_PATH = os.environ.get("SDESK_SUPPLEMENT_PATH", "/code")
 SDESK_INPUT_METADATA_PATH = f"{SDESK_INPUT_PATH}/input_metadata.json"
 SDESK_INPUT_PARAMETERS_PATH = f"{SDESK_INPUT_PATH}/input_parameters.json"
 
 SDESK_OUTPUT_PATH = os.environ.get("SDESK_OUTPUT_PATH", "/output")
 SDESK_OUTPUT_METADATA_PATH = f"{SDESK_OUTPUT_PATH}/input_metadata_updated.json"
 
-SDESK_SUPPORT_FILE_METADATA_PATH = f"{SDESK_INPUT_PATH}/support_file_metadata.json"
+SDESK_SUPPORT_FILE_METADATA_PATH = f"{SDESK_SUPPLEMENT_PATH}/support_file_metadata.json"
 
 
 def get_input_metadata() -> dict:
@@ -71,7 +72,7 @@ def force_str(object):
         return ""
 
 
-def write_tsv_file(file_path, columns, data):
+def write_tsv_file(file_path, columns, data, pre_header=""):
     with open(file_path, "w") as fp:
         fileposition = 0
         # Header
@@ -80,6 +81,10 @@ def write_tsv_file(file_path, columns, data):
         fp.write(column_line)
         fileposition += len(column_line)
         # Data
+        if pre_header:
+            fp.write(pre_header)
+            fileposition += len(pre_header)
+
         for row in data:
             strings = [force_str(elem) for elem in row]
             data_line = "\t".join(strings) + "\n"
@@ -98,6 +103,6 @@ def get_support_files_metadata() -> dict:
 def get_support_files(suppor_files_metadata):
     support_files = []
     for in_file in suppor_files_metadata:
-        path = f"{SDESK_INPUT_PATH}/{in_file['actual_name']}"
+        path = f"{SDESK_SUPPLEMENT_PATH}/{in_file['actual_name']}"
         support_files.append(SdeskFile(path))
     return support_files
