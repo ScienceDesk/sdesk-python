@@ -75,16 +75,16 @@ def force_str(object):
 def write_tsv_file(file_path, columns, data, pre_header=""):
     with open(file_path, "w") as fp:
         fileposition = 0
+        if pre_header:
+            fp.write(pre_header)
+            fileposition += len(pre_header)
+
         # Header
         column_names = [col.replace("\n", " ") for col in columns]
         column_line = "\t".join(column_names) + "\n"
         fp.write(column_line)
         fileposition += len(column_line)
         # Data
-        if pre_header:
-            fp.write(pre_header)
-            fileposition += len(pre_header)
-
         for row in data:
             strings = [force_str(elem) for elem in row]
             data_line = "\t".join(strings) + "\n"
