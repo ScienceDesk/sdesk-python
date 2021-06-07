@@ -15,7 +15,7 @@ You can check the current documentation at [Read The Docs](https://sciencedesk-h
 
 ## Release Management (for contribuitors)
 ### Release candidates
- * Set proper version on files `pyproject.toml` and `sdesk/__init__.py` following `<X>.<Y>.<Z>+RC<V>` (i.e 0.2.4+RC0)
+ * Set proper version on files `pyproject.toml` and `sdesk/__init__.py` following `<X>.<Y>.<Z>+rc.<V>` (i.e 0.2.4+RC0)
  * Commit and push to development branch
  * The package will be published at https://pypi.debonzi.dev
     * Install it with ` pip install -i https://pypi.debonzi.dev/simple/ sdesk-0.2.4+rc.0` (use the proper package version)
@@ -27,5 +27,5 @@ You can check the current documentation at [Read The Docs](https://sciencedesk-h
  * Tag with the same package version
     * For instance ` git tag 0.2.4`
  * push `development` `master` and tag to origin
-    * For instance `git push origin master develoment 0.2.4` 
+    * For instance `git push origin master develoment 0.2.4`
  * The package will be published at https://pypi.org/
