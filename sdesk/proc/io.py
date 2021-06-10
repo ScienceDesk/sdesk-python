@@ -76,11 +76,13 @@ def write_tsv_file(file_path, columns, data, pre_header=""):
     with open(file_path, "w") as fp:
         fileposition = 0
         if pre_header:
+            lines = pre_header.split("\n")
+            pre_header = "\n".join(["# " + line for line in lines]) + "\n\n"
             fp.write(pre_header)
             fileposition += len(pre_header)
 
         # Header
-        column_names = [col.replace("\n", " ") for col in columns]
+        column_names = ["[{0}]".format(col.replace("\n", " ")) for col in columns]
         column_line = "\t".join(column_names) + "\n"
         fp.write(column_line)
         fileposition += len(column_line)
