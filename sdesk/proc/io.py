@@ -133,9 +133,6 @@ def get_support_files(suppor_files_metadata):
     return support_files
 
 
-
-
-
 class DataLoader:
     def __init__(self):
         self.files = []
