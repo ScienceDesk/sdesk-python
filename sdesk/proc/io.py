@@ -9,19 +9,31 @@ from .sdesk_file import SdeskFile
 SDESK_INPUT_PATH = os.environ.get("SDESK_INPUT_PATH", "/input")
 SDESK_SUPPLEMENT_PATH = os.environ.get("SDESK_SUPPLEMENT_PATH", "/code")
 SDESK_INPUT_METADATA_PATH = f"{SDESK_INPUT_PATH}/input_metadata.json"
+SDESK_SAMPLE_INPUT_METADATA_PATH = f"{SDESK_INPUT_PATH}/sample_input_metadata.json"
 SDESK_INPUT_PARAMETERS_PATH = f"{SDESK_INPUT_PATH}/input_parameters.json"
 
 SDESK_OUTPUT_PATH = os.environ.get("SDESK_OUTPUT_PATH", "/output")
 SDESK_OUTPUT_METADATA_PATH = f"{SDESK_OUTPUT_PATH}/input_metadata_updated.json"
-
+SDESK_OUTPUT_SAMPLE_METADATA_PATH = f"{SDESK_OUTPUT_PATH}/input_samples_meta_updated.json"
 SDESK_SUPPORT_FILE_METADATA_PATH = f"{SDESK_SUPPLEMENT_PATH}/support_file_metadata.json"
 
 
 def get_input_metadata() -> dict:
-    with open(SDESK_INPUT_METADATA_PATH) as file:
-        rv = json.load(file)
-        return rv
+    try:
+        with open(SDESK_INPUT_METADATA_PATH) as file:
+            rv = json.load(file)
+            return rv
+    except:
+        return []
 
+
+def get_sample_input_metadata() -> dict:
+    try:
+        with open(SDESK_INPUT_METADATA_PATH) as file:
+            rv = json.load(file)
+            return rv
+    except:
+        return []
 
 def get_input_parameters() -> dict:
     with open(SDESK_INPUT_PARAMETERS_PATH) as file:
@@ -41,6 +53,17 @@ def update_input_metadata(meta_data) -> dict:
     logging.info(f"updating input_metadata")
 
     out_meta = SdeskFile(SDESK_OUTPUT_METADATA_PATH)
+    logging.debug(f"input_metadata path: {out_meta.path()}")
+
+    with open(out_meta.path(), "w+") as f:
+        json.dump(meta_data, f)
+    return out_meta
+
+
+def update_sample_input_metadata(meta_data) -> dict:
+    logging.info(f"updating input_metadata")
+
+    out_meta = SdeskFile(SDESK_OUTPUT_SAMPLE_METADATA_PATH)
     logging.debug(f"input_metadata path: {out_meta.path()}")
 
     with open(out_meta.path(), "w+") as f:
@@ -108,3 +131,57 @@ def get_support_files(suppor_files_metadata):
         path = f"{SDESK_SUPPLEMENT_PATH}/{in_file['actual_name']}"
         support_files.append(SdeskFile(path))
     return support_files
+
+
+
+
+
+class DataLoader:
+    def __init__(self):
+        self.files = []
+        self.samples = []
+        self.files_metadata = get_input_metadata()
+        for i in self.files_metadata:
+            self.files.append(InputData(i, 'file', self))
+
+        self.samples_metadata = get_sample_input_metadata()
+        for i in self.samples_metadata:
+            self.samples.append(InputData(i, 'sample', self))
+
+    def file_commit(self):
+        update_input_metadata(self.files_metadata)
+
+    def sample_commit(self):
+        update_sample_input_metadata(self.samples_metadata)
+
+
+class InputData:
+    def __init__(self, metadata, data_type, manager):
+        self.type = data_type
+        self._manager = manager
+        self.metadata = metadata
+        self.custom_properties = metadata['custom_metadata']
+        self.properties = metadata
+        if self.type == 'file':
+            path = f"{SDESK_INPUT_PATH}/{metadata['actual_name']}"
+            self._file = SdeskFile(path)
+
+    @property
+    def path(self):
+        if self.type == 'file':
+            return self._file.path()
+        return None
+
+    @property
+    def sample(self):
+        if not self.metadata.get('sample', False):
+            return None
+        return InputData(self.metadata['sample'], 'file.sample', self._manager)
+
+    def update_custom_properties(self, data):
+        self.metadata['custom_metadata'].update(data)
+        self.custom_properties = self.metadata['custom_metadata']
+        if self.type == 'sample':
+            self._manager.sample_commit()
+        if self.type == 'file' or type == 'file.sample':
+            self._manager.file_commit()
