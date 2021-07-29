@@ -29,7 +29,7 @@ def get_input_metadata() -> dict:
 
 def get_sample_input_metadata() -> dict:
     try:
-        with open(SDESK_INPUT_METADATA_PATH) as file:
+        with open(SDESK_SAMPLE_INPUT_METADATA_PATH) as file:
             rv = json.load(file)
             return rv
     except:
