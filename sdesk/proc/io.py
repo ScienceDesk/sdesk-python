@@ -6,16 +6,20 @@ import os
 from .sdesk_file import SdeskFile
 
 
+# Code and Support
+SDESK_SUPPORT_PATH = os.environ.get("SDESK_SUPPORT_PATH", "/code")
+SDESK_SUPPORT_FILE_METADATA_PATH = f"{SDESK_SUPPORT_PATH}/support_file_metadata.json"
+
+# INPUTs
 SDESK_INPUT_PATH = os.environ.get("SDESK_INPUT_PATH", "/input")
-SDESK_SUPPLEMENT_PATH = os.environ.get("SDESK_SUPPLEMENT_PATH", "/code")
 SDESK_INPUT_METADATA_PATH = f"{SDESK_INPUT_PATH}/input_metadata.json"
 SDESK_SAMPLE_INPUT_METADATA_PATH = f"{SDESK_INPUT_PATH}/sample_input_metadata.json"
 SDESK_INPUT_PARAMETERS_PATH = f"{SDESK_INPUT_PATH}/input_parameters.json"
 
+# OUTPUTs
 SDESK_OUTPUT_PATH = os.environ.get("SDESK_OUTPUT_PATH", "/output")
 SDESK_OUTPUT_METADATA_PATH = f"{SDESK_OUTPUT_PATH}/input_metadata_updated.json"
 SDESK_OUTPUT_SAMPLE_METADATA_PATH = f"{SDESK_OUTPUT_PATH}/input_samples_meta_updated.json"
-SDESK_SUPPORT_FILE_METADATA_PATH = f"{SDESK_SUPPLEMENT_PATH}/support_file_metadata.json"
 
 
 def get_input_metadata() -> dict:

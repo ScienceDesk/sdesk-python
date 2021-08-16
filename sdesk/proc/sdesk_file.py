@@ -2,9 +2,9 @@ import pathlib
 
 
 class SdeskFile:
-    def __init__(self, path, metadata={}):
+    def __init__(self, path, metadata=None):
         self._file_path = path
-        self._metadata = metadata
+        self._metadata = metadata or {}
 
     def name(self):
         return pathlib.Path(self._file_path).name
