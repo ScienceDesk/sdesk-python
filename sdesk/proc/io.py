@@ -24,7 +24,8 @@ def get_input_metadata() -> dict:
             rv = json.load(file)
             return rv
     except:
-        return []
+        onlyfile_names = [f for f in os.listdir(SDESK_INPUT_PATH) if os.path.isfile(os.path.join(SDESK_INPUT_PATH, f))]
+        return [ {'actual_name': fname , 'metadata': {}, 'name': fname, 'custom_metadata': {}} for fname in onlyfile_names]
 
 
 def get_sample_input_metadata() -> dict:
@@ -95,6 +96,15 @@ def force_str(object):
         return ""
 
 
+def json_to_text(json_data):
+    text = ""
+    for key in json_data:
+        text += "{0}: {1}\n".format(key, json_data[key])
+    text += "\n"
+    return text
+
+
+
 def write_tsv_file(file_path, columns, data, pre_header=""):
     with open(file_path, "w") as fp:
         fileposition = 0
@@ -158,6 +168,8 @@ class InputData:
         self._manager = manager
         self.metadata = metadata
         self.custom_properties = metadata['custom_metadata']
+        if not self.custom_properties:
+            self.custom_properties = {}
         self.properties = metadata
         if self.type == 'file':
             path = f"{SDESK_INPUT_PATH}/{metadata['actual_name']}"
